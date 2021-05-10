@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "811615584221",
+    "project_id": "tutorfinder-867e0",
+    "storage_bucket": "tutorfinder-867e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:811615584221:android:cc11b7e559c48cb88d8034",
+        "android_client_info": {
+          "package_name": "com.tutorfinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "811615584221-2l885oj8qplhrr5ht6i0tf69h1o9326q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tutorfinder",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "811615584221-g6kshmlsno87kbgucm3623hb1d48dip7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSyPnAagyxC40G4MuWYliZtshSoqvj828"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "811615584221-g6kshmlsno87kbgucm3623hb1d48dip7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
