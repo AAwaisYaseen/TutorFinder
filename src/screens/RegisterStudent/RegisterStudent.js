@@ -123,7 +123,7 @@ class RegisterStudent extends React.Component {
     //     }
     // });
 
-    handleRegisterUser = () => {
+    handleRegisterUser = async() => {
         const profileUri = this.state.profileUri;
         const name = this.state.name;
         const email = this.state.email;
@@ -133,6 +133,9 @@ class RegisterStudent extends React.Component {
         const address = this.state.address;
         const longitude = this.state.liveLongitude;
         const latitude = this.state.Livelatitude;
+
+        const token = await messaging().getToken();
+
         // Student Register Code
         auth()
             .createUserWithEmailAndPassword(email, password)
@@ -152,7 +155,8 @@ class RegisterStudent extends React.Component {
                     City : city,
                     Address : address,
                     Latitude : latitude,
-                    Longitude : longitude 
+                    Longitude : longitude,
+                    TokenKey : token
                 }
                 doc.set(storeUser);
             })

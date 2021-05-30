@@ -121,7 +121,7 @@ function PhoneSignIn({ navigation }) {
                 <TouchableOpacity style={styles.getStrtdBtnContainer}
                     onPress={() => signInWithPhoneNumber(phone)}>
                     <Text style={styles.btnTextContainer}>
-                        Get Code
+                        Send Code
                     </Text>
                 </TouchableOpacity>
             </View>

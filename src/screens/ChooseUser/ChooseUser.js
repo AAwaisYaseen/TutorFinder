@@ -26,7 +26,7 @@ class ChooseUser extends React.Component {
                     />
                     <Text style={styles.chooseUsertxt}>
                         Tutor Finder is an App full with{'\n'}
-                        tutors to help you out{'\n'}
+                        tutors to help bncsbdhc jyou out{'\n'}
                         on your academic Struggle.
                     </Text>
                 </View>

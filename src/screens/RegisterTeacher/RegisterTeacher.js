@@ -150,8 +150,9 @@ class RegisterTeacher extends React.Component {
 
 
 
-    handleTeacherRegister = () => {
+    handleTeacherRegister = async() => {
 
+        // getting Global Variables data here.
         const profileUri = this.state.profileUri;
         const name = this.state.name;
         const email = this.state.email;
@@ -166,6 +167,9 @@ class RegisterTeacher extends React.Component {
         const summary = this.state.summary;
         const longitude = this.state.liveLongitude;
         const latitude = this.state.Livelatitude;
+
+        const token = await messaging().getToken();
+
 
         // Teacher Register Code
         auth()
@@ -192,6 +196,8 @@ class RegisterTeacher extends React.Component {
                     Summary: summary,
                     Latitude : latitude,
                     Longitude : longitude,
+                    TokenKey : token,
+                    Verified : false
                 }
                 doc.set(storeUser);
                 console.log("Teacher Data Saved");

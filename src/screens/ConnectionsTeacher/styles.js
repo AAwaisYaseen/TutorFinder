@@ -113,6 +113,13 @@ export const styles = StyleSheet.create({
     fontWeight : 'bold',
   },
 
+
+  LatestMessageText: {
+    marginLeft : 20,
+    fontSize: 18,
+    fontWeight : '400',
+  },
+  
   ratetxt: {
     fontSize: 18,
     fontWeight : 'bold',

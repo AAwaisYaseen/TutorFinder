@@ -18,7 +18,7 @@ import firestore from '@react-native-firebase/firestore';
 import messaging from '@react-native-firebase/messaging';
 
 
-
+let subscriber; // listener Variable for firestore!
 
 class TeacherLogin extends React.Component {
     constructor(props) {
@@ -31,24 +31,25 @@ class TeacherLogin extends React.Component {
         }
 
     }
-
     saveloginDataAsyncStorage = async () => {
         await AsyncStorage.setItem('@User_Type', 'teacher')
 
         const UID = auth().currentUser.uid;
 
-        // const token = await messaging().getToken();
-        // firestore()
-        //     .collection("teachers")
-        //     .doc(UID)
-        //     .set({
-        //         TokenKey : token
-        //     })
+        const token = await messaging().getToken();
+       await firestore()
+            .collection("teachers")
+            .doc(UID)
+            .update({
+                TokenKey : token
+            })
+            .then(() => {
+                console.log('Token Key Updated!');
+            });
 
-        //     console.log("Token Key Set");
 
 
-        const subscriber = firestore()
+        subscriber = firestore()
             .collection('teachers')
             .doc(UID)
             .onSnapshot(documentSnapshot => {
@@ -58,26 +59,29 @@ class TeacherLogin extends React.Component {
                 console.log("user listing local = ", users)
                 console.log("Name : ", users.Name)
 
-                // this.setState({
-                //     userSignedInData: users
-                // })
-                // console.log("userSignIN :" , this.state.userSignedInData);
-
                 /*Calling Store Data here to
                 save data into Async Storage*/
                 this.storeData(users)
-                console.log("everything set");
-                // this.props.navigation.navigate('DrawerStudent')
-                // console.log('User data: ', documentSnapshot.data());
+
+                /* stopListener :
+                 gets Called to stop listener firestore*/
+                this.stopListener(subscriber);
             });
 
-        this.props.navigation.navigate('DrawerTeacher')
+            console.log("everything set");
+
+
+        // this.props.navigation.navigate('DrawerTeacher')
 
         // Stop listening for updates when no longer required
-        return () => subscriber();
+        // return () => subscriber();
 
     }
 
+    stopListener = (subscriber) => {
+        subscriber();
+     };
+    
 
     storeData = async (value) => {
         try {
@@ -94,9 +98,6 @@ class TeacherLogin extends React.Component {
         auth()
             .signInWithEmailAndPassword(this.state.teacherEmail, this.state.teacherPassword)
             .then(() => {
-
-                // const userID = auth().currentUser.uid
-                // console.log("userId is :" + userID);
                 this.saveloginDataAsyncStorage();
                 // this.props.navigation.navigate('DrawerTeacher')
             })
@@ -160,7 +161,7 @@ class TeacherLogin extends React.Component {
                         <Text style={{ marginRight: 5 }}>Don't have an account?</Text>
 
                         <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('PhoneVerification')}>
+                            onPress={() => this.props.navigation.navigate('RegisterTeacher')}>
                             <Text style={{ fontWeight: 'bold' }}>
                                 TEACHER SIGNUP
                             </Text>

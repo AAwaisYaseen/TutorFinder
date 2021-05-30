@@ -185,7 +185,7 @@ export default class DashboardStudent extends React.Component {
       <View style={{ flex: 1 }}>
         <Header
           leftComponent={{ icon: 'menu', color: '#fff' }}
-          centerComponent={{ text: 'Teacher Dashboard', style: { color: '#fff' } }}
+          centerComponent={{ text: 'Dashboard', style: { color: '#fff' } }}
           rightComponent={{ icon: 'home', color: '#fff' }}
 
         />

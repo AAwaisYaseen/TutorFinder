@@ -54,6 +54,8 @@ class ShowFeedback extends React.Component {
                 const users = []
                 //console.log('Total users: ', querySnapshot.size);
 
+                // Getting each feedback data from DB and Storing data into
+                // variable.
                 querySnapshot.forEach(documentSnapshot => {
                     //console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
                     users.push({
@@ -98,25 +100,25 @@ class ShowFeedback extends React.Component {
         // const { UID } = route.params;
         // console.log("UID is : ", UID)
 
-        const Data = [
-            {
-                key: '12egqdbac',
-                Name: 'Awais',
-                Rating: 4,
-                Feedback: 'Aslam is a great Teacher found on the very Beascb kjasbcascb ioascb abuasgca auydgchw ywvebcw vwvecwvycv iwvchjgytt tydt evhy dyevc 8cgwfyt h    ywvchjwg wdycv ',
-                Image: '',
+        // const Data = [
+        //     {
+        //         key: '12egqdbac',
+        //         Name: 'Awais',
+        //         Rating: 4,
+        //         Feedback: 'Aslam is a great Teacher found on the very Beascb kjasbcascb ioascb abuasgca auydgchw ywvebcw vwvecwvycv iwvchjgytt tydt evhy dyevc 8cgwfyt h    ywvchjwg wdycv ',
+        //         Image: '',
 
-            }, {
+        //     }, {
 
-                key: 'addfefwef',
-                Name: 'Ali',
-                Rating: 5,
-                Feedback: 'Lorem ipusm acbechv iuvecbwec udgchjwgevhjdv ugdhv huwbcv dyigehvb gggh vhdcv',
-                Image: '',
+        //         key: 'addfefwef',
+        //         Name: 'Ali',
+        //         Rating: 5,
+        //         Feedback: 'Lorem ipusm acbechv iuvecbwec udgchjwgevhjdv ugdhv huwbcv dyigehvb gggh vhdcv',
+        //         Image: '',
 
 
-            }
-        ]
+        //     }
+        // ]
         return (
             <View>
                 <SafeAreaView>

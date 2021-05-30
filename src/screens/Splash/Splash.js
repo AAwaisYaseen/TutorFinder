@@ -1,4 +1,5 @@
 import React from 'react';
+import { Alert } from 'react-native';
 import {
     SafeAreaView,
     StyleSheet,
@@ -14,10 +15,14 @@ import { styles } from './styles';
 
 class Splash extends React.Component {
     render() {
+
+        /* SetTimeout() function is navigating us to the 
+        next Sreen(Choose user) after 2 seconds .*/
+        
         setTimeout(() => {
             this.props.navigation.navigate('ChooseUser')
         },
-            2000
+            3000
         )
         return (
             <View style={styles.Splash}>

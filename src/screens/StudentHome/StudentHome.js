@@ -30,6 +30,61 @@ class StudentHome extends React.Component {
 
       Livelatitude: 123.223,
       liveLongitude: 123.5655,
+
+      studentID_key: '',
+      profileUri: '',
+      name: '',
+      city: '',
+      phoneNumber: '',
+      address: '',
+      studentLatitudeDB: '',
+      studentLongitudeDB: '',
+    }
+  }
+
+  componentDidMount = async () => {
+    /*get Data Function Calling here.*/
+    this.getData()
+  }
+
+
+  /* getData Function will give us the data of student which we will pass
+  as notification data when sending request to teacher*/
+  getData = async () => {
+    try {
+      const ID = await AsyncStorage.getItem('@student_id_Key')
+      const Image = await AsyncStorage.getItem('@student_Image_Key')
+      const Name = await AsyncStorage.getItem('@student_Name_Key')
+      const City = await AsyncStorage.getItem('@student_City_Key')
+      const Phone = await AsyncStorage.getItem('@student_Phone_Key')
+      const Address = await AsyncStorage.getItem('@student_Address_Key')
+
+      const jsonValue = await AsyncStorage.getItem('@student_Latitude_Key')
+      const Latitude = JSON.parse(jsonValue)
+
+      const jsonValue2 = await AsyncStorage.getItem('@student_Longitude_Key')
+      const Longitude = JSON.parse(jsonValue2)
+
+
+      // const Latitude = await AsyncStorage.getItem('@student_Latitude_Key')
+      // const Longitude = await AsyncStorage.getItem('@student_Longitude_Key')
+
+
+      this.setState({
+        studentID_key: ID,
+        profileUri: Image,
+        name: Name,
+        city: City,
+        phoneNumber: Phone,
+        address: Address,
+        studentLatitudeDB: Latitude,
+        studentLongitudeDB: Longitude,
+
+      })
+      // value previously stored
+      console.log("Data recovered from async")
+    } catch (e) {
+      console.log("error :", e)
     }
   }
 
@@ -38,7 +93,7 @@ class StudentHome extends React.Component {
 
     let key = "AAAAvPgO_90:APA91bGQ0YESbEWyBy20AebKbBObRIkK_TFKhqxAbEblfch5alWU3TDq7WXqWF1_vYZYyvuUFwZYqwnkvR_TwccWr0AQaNQmmxPskuuk4ijIioIB9VDS-w84Ul7WlKQX6z8KifkYMBbd"
     let NotificationRecieverToken = token
-     // let token2 = '4xU8FY3IIYeFCCCFNz0Vymywj6M2'
+    // let token2 = '4xU8FY3IIYeFCCCFNz0Vymywj6M2'
     let title = "Connection Request"
     let body = "You have a new Connection request"
 
@@ -59,11 +114,17 @@ class StudentHome extends React.Component {
           android_channel_id: '500',
           show_in_foreground: true
         },
-        data : {
-            "SenderID" : "9YMIZkp5FWPw4KT9HKWENZmF3DN2",
-            "Name" : "Wanda",
-            "Image" : "content://com.tutorfinder.imagepickerprovider/cacheDir/rn_image_picker_lib_temp_a7858a75-7a52-43df-9236-2a5401cd9342.jpg",
-            "SenderTokenKey" : senderToken}
+        data: {
+          "SenderID": this.state.studentID_key,
+          "Name": this.state.name,
+          "Image": this.state.profileUri,
+          "Phone": this.state.phoneNumber,
+          "City": this.state.city,
+          "Address": this.state.address,
+          "Latitude": this.state.studentLatitudeDB,
+          "Longitude": this.state.studentLongitudeDB,
+          "SenderTokenKey": senderToken
+        }
       })
     })
       .then(response => console.log(response))
@@ -136,7 +197,7 @@ class StudentHome extends React.Component {
     const TeacherTokenKey = UserName.TokenKey;
     const Sub = UserName.Subjects;
     //console.log(Sub);
-    console.log("fieldsData :" , UserName)
+    console.log("fieldsData :", UserName)
     // console.log(UserName.key)
     const latitudeLive = UserName.Latitude;
     const longitudeLive = UserName.Longitude;

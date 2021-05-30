@@ -37,10 +37,10 @@ class ProfileTeacher extends React.Component {
 
             Livelatitude: 123.223,
             liveLongitude: 123.5655,
-            userSignedInData : '',
+            userSignedInData: '',
         }
-        this.getData()
-        // this.getProfileDatafromFirebase();
+        // this.getData()
+        this.getProfileDatafromFirebase();
     }
 
 
@@ -77,12 +77,12 @@ class ProfileTeacher extends React.Component {
 
                 console.log("user listing local = ", users)
                 console.log("Name : ", users.Name)
-                console.log("Grades " , Grades)
+                console.log("Grades ", Grades)
 
                 this.setState({
-                    userSignedInData : users
+                    userSignedInData: users
                 })
-                console.log("userSignIN :" , this.state.userSignedInData);
+                console.log("userSignIN :", this.state.userSignedInData);
 
                 /*Calling Store Data here to
                 save data into Async Storage*/
@@ -107,10 +107,10 @@ class ProfileTeacher extends React.Component {
         // })
 
         Grades = ["FSc.1", "FSC.2",
-        "CSS", "Intermediate",
-        "Nursery",
-        "hellcwo", "hellowc",]
-                // const Subjects = userSignedInData.Subjects;
+            "CSS", "Intermediate",
+            "Nursery",
+            "hellcwo", "hellowc",]
+        // const Subjects = userSignedInData.Subjects;
 
         // const latitudeLive = userSignedInData.Latitude;
         // console.log(latitudeLive);
@@ -157,7 +157,25 @@ class ProfileTeacher extends React.Component {
                                 <Text style={styles.ratetxt}>
                                     ${this.state.userSignedInData.HourlyRate}/hr
                                 </Text>
+
+                                <Text style = {{ fontWeight : 'bold', fontSize : 16 , marginTop : 5 }}>{this.state.userSignedInData.Verified ? "Account Verified" : "Not Verified"}</Text>
                             </View>
+
+                            {/* {this.state.userSignedInData.Verified} ? (
+                                <View>
+                                <Text style={styles.phonetxt}>
+                                    Account Verified
+                                </Text>
+                            </View>
+                                )
+                                : (
+                                    <View>
+
+                                <Text style={styles.phonetxt}>
+                                    Account not Verified
+                                    </Text>
+                            </View>
+                                ) */}
 
 
                         </View>

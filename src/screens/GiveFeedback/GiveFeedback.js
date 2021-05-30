@@ -37,13 +37,13 @@ class GiveFeedback extends React.Component {
 
 
 
-    /*This function gets called evertime
+    /*This function gets called everytime
      when this screen is called. */
-    // componentDidMount = async () => {
-    //     //     //Calling getData here
-    //     //     // console.log("abhcbeh")
-    //     this.getData()
-    // }
+    componentDidMount = async () => {
+        //     //Calling getData here
+        //     // console.log("abhcbeh")
+        this.getData()
+    }
 
 
 
@@ -72,9 +72,10 @@ class GiveFeedback extends React.Component {
 
     saveFeedbackInDatabase = () => {
         const UserData = this.state.SignedInUsedData;
-        const TeacherUID = this.state.UID
+        const TeacherUID = this.state.UID  // Figure this out.
         const studentUID = firebase.auth().currentUser.uid
-        const image = UserData.Image !== undefined ? UserData.Image : this.state.profilePic;
+        // const image = UserData.Image !== undefined ? UserData.Image : this.state.profilePic;
+        const image = this.state.profilePic;
         const name = UserData.Name;
         const feedback = this.state.feedback;
         const rating = this.state.starRating
@@ -126,25 +127,25 @@ class GiveFeedback extends React.Component {
     /* getData :
     Getting/Retriving Signed in user Data into AysncStorge here */
 
-    // getData = async () => {
-    //     try {
-    //         const teacherID = await AsyncStorage.getItem('@Teacher_UID')
-    //         const jsonValue = await AsyncStorage.getItem('@SignedInUserStorage_Key')
-    //         const Data = jsonValue != null ? JSON.parse(jsonValue) : null
-    //         // console.log(Data.Name)
-    //         console.log("UID is :", teacherID)
-    //         console.log(Data);
+    getData = async () => {
+        try {
+            const teacherID = await AsyncStorage.getItem('@Teacher_UID')
+            const jsonValue = await AsyncStorage.getItem('@SignedInUserStorage_Key')
+            const Data = jsonValue != null ? JSON.parse(jsonValue) : null
+            // console.log(Data.Name)
+            console.log("UID is :", teacherID)
+            console.log(Data);
 
-    //         this.setState({
-    //             UID: teacherID,
-    //             SignedInUsedData: Data
-    //         })
-    //         console.log("Data saved")
-    //         // console.log("UID : ", this.state.SignedInUsedData)
-    //     } catch (e) {
-    //         console.log("error : " + e)
-    //     }
-    // }
+            this.setState({
+                UID: teacherID,
+                SignedInUsedData: Data
+            })
+            console.log("Data saved")
+            // console.log("UID : ", this.state.SignedInUsedData)
+        } catch (e) {
+            console.log("error : " + e)
+        }
+    }
 
 
 
@@ -207,7 +208,7 @@ class GiveFeedback extends React.Component {
                     </View>
 
                     <TouchableOpacity style={styles.UserBtn}
-                    // onPress={this.saveFeedbackInDatabase}
+                    onPress={this.saveFeedbackInDatabase}
                     >
                         <Text style={styles.btnText}>Submit Feedback</Text>
                     </TouchableOpacity>

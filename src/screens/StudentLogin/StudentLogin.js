@@ -14,8 +14,12 @@ import {
 import { styles } from './styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
+import messaging from '@react-native-firebase/messaging';
 import firestore from '@react-native-firebase/firestore';
 import { ActivityIndicatorBase } from 'react-native';
+
+let subscriber; // listener Variable for firestore!
+
 
 class StudentLogin extends React.Component {
     constructor(props) {
@@ -73,17 +77,36 @@ class StudentLogin extends React.Component {
 
 
     saveloginDataAsyncStorage = async () => {
+
+        /* Saving the type of user here ! */
         await AsyncStorage.setItem('@User_Type', 'student')
 
+        /* Getting ID of current User. */
         const userID = auth().currentUser.uid;
 
-        firestore()
+        /* Updating Token Value for notifications.*/
+        const token = await messaging().getToken();
+        await firestore()
+            .collection("users")
+            .doc(userID)
+            .update({
+                TokenKey: token
+            })
+            .then(() => {
+                console.log('Token Key Updated!');
+            });
+
+        /* Get Current User Data from firestore Database 
+        and store that data into Local Database (AsyncStorage) for further use.*/
+        subscriber = firestore()
             .collection('users')
             .doc(userID)
             .onSnapshot(documentSnapshot => {
-                console.log("documentSnapshot", documentSnapshot.data())
+                // console.log("documentSnapshot", documentSnapshot.data())
                 // const users = documentSnapshot.data()
 
+                /* Storing Data into variables.*/
+                const getStudentID = documentSnapshot.id;
                 const geStudentImage = documentSnapshot.data().Image;
                 const getStudentName = documentSnapshot.data().Name;
                 const getStudentEmail = documentSnapshot.data().Email;
@@ -91,20 +114,23 @@ class StudentLogin extends React.Component {
                 const getStudentCity = documentSnapshot.data().City;
                 const getStudentPhone = documentSnapshot.data().Phone;
                 const getStudentAddress = documentSnapshot.data().Address;
+                const getStudentLatitude = documentSnapshot.data().Latitude;
+                const getStudentLongitude = documentSnapshot.data().Longitude;
 
 
-                console.log("Image : " , geStudentImage)
-                console.log("Image : " , getStudentName)
-                console.log("Image : " , getStudentEmail)
-                console.log("Image : " , getStudentPassword)
-                console.log("Image : " , getStudentCity)
-                console.log("Image : " , getStudentPhone)
-                console.log("Image : " , getStudentAddress)
+                console.log("Image : ", geStudentImage)
+                console.log("Image : ", getStudentName)
+                console.log("Image : ", getStudentEmail)
+                console.log("Image : ", getStudentPassword)
+                console.log("Image : ", getStudentCity)
+                console.log("Image : ", getStudentPhone)
+                console.log("Image : ", getStudentAddress)
 
 
                 /*Calling Store Data here to
                 save data into Async Storage*/
                 this.storeData(
+                    getStudentID,
                     geStudentImage,
                     getStudentName,
                     getStudentEmail,
@@ -112,10 +138,15 @@ class StudentLogin extends React.Component {
                     getStudentCity,
                     getStudentPhone,
                     getStudentAddress,
-                    )
+                    getStudentLatitude,
+                    getStudentLongitude
+                )
 
                 console.log("everything set");
-                this.props.navigation.navigate('DrawerStudent')
+
+                /* stopListener :
+                 gets Called to stop listener firestore*/
+                 this.stopListener(subscriber);
 
 
                 // console.log('User data: ', documentSnapshot.data());
@@ -123,8 +154,9 @@ class StudentLogin extends React.Component {
         // this.props.navigation.navigate('DrawerStudent')
     }
 
-
-
+    stopListener = (subscriber) => {
+        subscriber();
+     };
 
 
 
@@ -146,9 +178,10 @@ class StudentLogin extends React.Component {
 
     /* storeData :
     AysncStorage is a local Storage we use to save data.
-    Storing Signed in user Data into AysncStorge here */
-    storeData = async (image , name , email , password , city , phone , address) => {
+    Storing current user Data into AysncStorge here */
+    storeData = async (id, image, name, email, password, city, phone, address, latitude, longitude) => {
         try {
+            await AsyncStorage.setItem('@student_id_Key', id)
             await AsyncStorage.setItem('@student_Image_Key', image)
             await AsyncStorage.setItem('@student_Name_Key', name)
             await AsyncStorage.setItem('@student_Email_Key', email)
@@ -156,6 +189,15 @@ class StudentLogin extends React.Component {
             await AsyncStorage.setItem('@student_City_Key', city)
             await AsyncStorage.setItem('@student_Phone_Key', phone)
             await AsyncStorage.setItem('@student_Address_Key', address)
+
+            const latitudeJsonValue = JSON.stringify(latitude)
+            await AsyncStorage.setItem('@storage_Key', latitudeJsonValue)
+
+            const longitudeJsonValue = JSON.stringify(longitude)
+            await AsyncStorage.setItem('@storage_Key', longitudeJsonValue)
+            // await AsyncStorage.setItem('@student_Latitude_Key', latitude)
+            // await AsyncStorage.setItem('@student_Longitude_Key', longitude)
+
 
             console.log("Done data saved")
 

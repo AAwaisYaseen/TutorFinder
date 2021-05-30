@@ -33,7 +33,6 @@ import PhoneVerification from './src/screens/PhoneVerification/PhoneVerification
 import Notifications from './src/screens/Notifications';
 import GiveFeedback from './src/screens/GiveFeedback/GiveFeedback';
 import ShowFeedback from './src/screens/ShowFeedback/ShowFeedback';
-
 class App extends React.Component {
 
   // componentDidMount = () => {

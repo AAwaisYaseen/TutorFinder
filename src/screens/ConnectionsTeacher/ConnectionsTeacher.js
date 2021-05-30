@@ -80,39 +80,64 @@ export default class ConnectionsTeacher extends React.Component {
             connections: []
         }
 
-        this.getAllConnectionsData();
     }
 
     componentDidMount = async () => {
+
         LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+
+        this.getAllConnectionsData();
+
     }
 
 
-    getAllConnectionsData = async() => {
+    getAllConnectionsData = async () => {
 
-        const currentUserID = auth().currentUser.uid;
+        this._unsubscribe = this.props.navigation.addListener('focus', () => {
+            // do something
 
-        const subscriber = firestore()
-            .collection('teachers')
-            .doc(currentUserID)
-            .collection("connections")
-            .get()
-            .then(querySnapshot => {
-                const users = []
-                //console.log('Total users: ', querySnapshot.size);
 
-                querySnapshot.forEach(documentSnapshot => {
-                    users.push({
-                        ...documentSnapshot.data(),
-                        key: documentSnapshot.id,
+            const currentUserID = auth().currentUser.uid;
+
+            const subscriber = firestore()
+                .collection('teachers')
+                .doc(currentUserID)
+                .collection("connections")
+                .orderBy('LatestMessage.CreatedAt', 'desc')
+                .get()
+                .then(querySnapshot => {
+                    const users = []
+                    //console.log('Total users: ', querySnapshot.size);
+
+                    querySnapshot.forEach(documentSnapshot => {
+                        users.push({
+                            key: documentSnapshot.id,
+                            name: '',
+                            latestMessage: { text: '' },
+                            ...documentSnapshot.data(),
+                        });
                     });
+                    this.setState({
+                        connections: users
+                    })
+                    console.log("Got Connections Data")
+                    console.log(this.state.connections);
                 });
-                this.setState({
-                    connections: users
-                })
-            });
 
-        return () => subscriber();
+            return () => subscriber();
+
+        });
+    }
+
+    componentWillUnmount() {
+        this._unsubscribe();
+      }
+
+
+    goToChatScreen = (item) => {
+        this.props.navigation.navigate('ChatTeacher', {
+            thread: item
+        })
     }
 
     render() {
@@ -143,8 +168,9 @@ export default class ConnectionsTeacher extends React.Component {
                             <View>
 
                                 <TouchableOpacity
-                                    // onPress={() => this.goToNextPage(item)}
-                                    activeOpacity={1}>
+                                    onPress={() => this.goToChatScreen(item)}
+                                // activeOpacity={1}
+                                >
 
 
                                     <View style={styles.photoContainer}>
@@ -155,18 +181,26 @@ export default class ConnectionsTeacher extends React.Component {
 
                                         />
 
-
-                                        <Text style={styles.nameText}>
-                                            {item.Name}
-                                                        {/* Ruben Dias */}
+                                        <View>
+                                            <Text style={styles.nameText}>
+                                                {item.Name}
+                                                {/* Ruben Dias */}
                                             </Text>
+
+                                            <Text style={styles.LatestMessageText}>
+                                                {item.LatestMessage.Text.slice(0, 90)}
+
+                                                {/* Ruben Dias */}
+                                            </Text>
+
+                                        </View>
 
                                     </View>
 
                                 </TouchableOpacity>
 
 
-                                <View style={{ height: 1, width: '100%', backgroundColor: 'black' }}>
+                                <View style={{ height: 0.5, width: '100%', backgroundColor: 'black' }}>
                                 </View>
 
                             </View>

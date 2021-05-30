@@ -31,31 +31,31 @@ var StaffData = [
     {
         id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
         name: 'Williams',
-        city: 'Sargodha',
+        LatestMessage: 'Welcome , [Name]',
         contactno: 675443354,
     },
     {
         id: 'bd7acbea-c1b1-46c2-aed5-3ad53atbb28ba',
         name: 'Brad',
-        city: 'Sargodha',
+        LatestMessage: 'Welcome , [Name]',
         contactno: 134234235,
     },
     {
         id: 'bd7acbea-c1b1-46c2-aed5-4',
         name: 'Bing',
-        city: 'Sargodha',
+        LatestMessage: 'Welcome , [Name]',
         contactno: 6754433224,
     },
     {
         id: 'bd7acbea-c1b1-46c2-aed5-3ad53ryabb28ba',
         name: 'John',
-        city: 'Sargodha',
+        LatestMessage: 'Welcome , [Name]',
         contactno: 4554433454,
     },
     {
         id: 'bd7acbea-c1b1-46c2-aed5-rya567788ba',
         name: 'Ken',
-        city: 'Sargodha',
+        LatestMessage: 'Welcome , [Name]',
         contactno: 2348234898,
     },
 
@@ -80,39 +80,64 @@ export default class ConnectionsStudent extends React.Component {
             connections: []
         }
 
-        this.getAllConnectionsData();
+        //this.getAllConnectionsData();
     }
 
     componentDidMount = async () => {
         LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+
+        this.getAllConnectionsData();
+        console.log("hello")
     }
 
 
-    getAllConnectionsData = async() => {
+    getAllConnectionsData = async () => {
 
-        const currentUserID = auth().currentUser.uid;
+        this._unsubscribe = this.props.navigation.addListener('focus', () => {
 
-        const subscriber = firestore()
-            .collection('users')
-            .doc(currentUserID)
-            .collection("connections")
-            .get()
-            .then(querySnapshot => {
-                const users = []
-                //console.log('Total users: ', querySnapshot.size);
 
-                querySnapshot.forEach(documentSnapshot => {
-                    users.push({
-                        ...documentSnapshot.data(),
-                        key: documentSnapshot.id,
+            const currentUserID = auth().currentUser.uid;
+
+            const subscriber = firestore()
+                .collection('users')
+                .doc(currentUserID)
+                .collection("connections")
+                .orderBy('LatestMessage.CreatedAt', 'desc')
+                .get()
+                .then(querySnapshot => {
+                    const users = []
+                    //console.log('Total users: ', querySnapshot.size);
+
+                    querySnapshot.forEach(documentSnapshot => {
+                        users.push({
+                            key: documentSnapshot.id,
+                            name: '',
+                            latestMessage: { text: '' },
+                            ...documentSnapshot.data(),
+                        });
                     });
+                    this.setState({
+                        connections: users
+                    })
+                    console.log("Got Connections Data")
+                    console.log(this.state.connections);
                 });
-                this.setState({
-                    connections: users
-                })
-            });
 
-        return () => subscriber();
+            return () => subscriber();
+        });
+
+    }
+
+    componentWillUnmount() {
+        this._unsubscribe();
+      }
+
+
+
+    goToChatScreen = (item) => {
+        this.props.navigation.navigate('ChatStudent', {
+            thread: item
+        })
     }
 
     render() {
@@ -143,8 +168,9 @@ export default class ConnectionsStudent extends React.Component {
                             <View>
 
                                 <TouchableOpacity
-                                    // onPress={() => this.goToNextPage(item)}
-                                    activeOpacity={1}>
+                                    onPress={() => this.goToChatScreen(item)}
+                                //activeOpacity={1}
+                                >
 
 
                                     <View style={styles.photoContainer}>
@@ -155,18 +181,26 @@ export default class ConnectionsStudent extends React.Component {
 
                                         />
 
-
-                                        <Text style={styles.nameText}>
-                                            {item.Name}
-                                                        {/* Ruben Dias */}
+                                        <View>
+                                            <Text style={styles.nameText}>
+                                                {item.Name}
+                                                {/* Ruben Dias */}
                                             </Text>
+
+                                            <Text style={styles.LatestMessageText}>
+                                                {item.LatestMessage.Text.slice(0, 90)}
+
+                                                {/* Ruben Dias */}
+                                            </Text>
+
+                                        </View>
 
                                     </View>
 
                                 </TouchableOpacity>
 
 
-                                <View style={{ height: 1, width: '100%', backgroundColor: 'black' }}>
+                                <View style={{ height: 0.5, width: '100%', backgroundColor: 'black' }}>
                                 </View>
 
                             </View>

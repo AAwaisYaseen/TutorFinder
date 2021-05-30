@@ -19,22 +19,37 @@ export default class RequestHandling extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      // sender states (Student)
       senderProfileUri: '',
       senderName: '',
       senderID: '',
       senderTokenKey: '',
+
+      senderCity: '',
+      senderPhoneNumber: '',
+      senderAddress: '',
+      studentLatitudeDB: 2.2,
+      studentLongitudeDB: 3.2,
+
+
+      // Reciever States (Teacher)
       receiverProfileUri: '',
       receiverName: '',
       receiverID: '',
+
+
+
       latitudeLive: 32.096245,
       longitudeLive: 72.64564,
 
     }
-
-    // this.getData();
-
   }
 
+
+  componentDidMount = async () => {
+
+    this.getData()
+  }
 
   /* getData :
 Getting/Retriving Signed in user Data into AysncStorge here */
@@ -44,16 +59,35 @@ Getting/Retriving Signed in user Data into AysncStorge here */
       const jsonValue = await AsyncStorage.getItem('@SignedInTeacherStorage_Key')
       const Data = jsonValue != null ? JSON.parse(jsonValue) : null
 
+      /* @senderNotificationData | is coming 
+      from Teacher Dashboard when notification
+      is recieved there. it is filled with
+       the notification Data. */
+
       const jsonValue2 = await AsyncStorage.getItem('@senderNotificationData')
       const senderNotificationData = jsonValue2 != null ? JSON.parse(jsonValue2) : null
 
-      console.log(senderNotificationData);
+
       console.log(Data);
+      console.log(senderNotificationData);
+
+
       this.setState({
+
         senderProfileUri: senderNotificationData.data.Image,
         senderName: senderNotificationData.data.Name,
         senderID: senderNotificationData.data.SenderID,
         senderTokenKey: senderNotificationData.data.SenderTokenKey,
+        senderCity: senderNotificationData.data.City,
+        senderPhoneNumber: senderNotificationData.data.Phone,
+        senderAddress: senderNotificationData.data.Address,
+
+        //location fields are not working for now. Handle this later
+
+        // studentLatitudeDB: senderNotificationData.data.Latitude,
+        // studentLongitudeDB: senderNotificationData.data.Longitude,
+
+
         receiverName: Data.Name,
         receiverProfileUri: Data.Image,
       })
@@ -74,6 +108,11 @@ Getting/Retriving Signed in user Data into AysncStorge here */
       UID: this.state.senderID,
       Image: this.state.senderProfileUri,
       Name: this.state.senderName,
+      LatestMessage: {
+        CreatedAt: new Date().getTime(),
+        Text: 'Welcome , Connection Created',
+
+      }
     }
     firestore()
       .collection('teachers')
@@ -89,7 +128,12 @@ Getting/Retriving Signed in user Data into AysncStorge here */
     const NotirecieverData = {
       UID: CurrentUserID,
       Image: this.state.receiverProfileUri,
-      Name: this.state.receiverName
+      Name: this.state.receiverName,
+      LatestMessage: {
+        CreatedAt: new Date().getTime(),
+        Text: 'Welcome , Connection Created',
+
+      }
     }
 
     firestore()
@@ -128,7 +172,7 @@ Getting/Retriving Signed in user Data into AysncStorge here */
 
       })
     })
-      .then(response => console.log("Notification sent" , response))
+      .then(response => console.log("Notification sent", response))
       .catch(error => error);
   }
 
@@ -172,27 +216,27 @@ Getting/Retriving Signed in user Data into AysncStorge here */
             <View style={styles.SingleInfoView}>
               <Text style={styles.headingText}>Name</Text>
               <Text style={styles.nametxt}>
-                {this.state.name}
-                Wanda
-                                    {/* John Doe */}
-                        </Text>
+                {this.state.senderName}
+                {/* Wanda */}
+                {/* John Doe */}
+              </Text>
             </View>
 
             <View style={styles.SingleInfoView}>
               <Text style={styles.headingText}>City</Text>
               <Text style={styles.citytxt}>
-                {this.state.city}
-                                    California
-                                </Text>
+                {this.state.senderCity}
+                {/* California */}
+              </Text>
 
             </View>
 
             <View style={styles.SingleInfoView}>
               <Text style={styles.headingText}>Phone Number</Text>
               <Text style={styles.phonetxt}>
-                {/* {this.state.phoneNumber} */}
-                                    +92376723447
-                                </Text>
+                {this.state.senderPhoneNumber}
+                {/* +92376723447 */}
+              </Text>
 
             </View>
 
@@ -202,9 +246,9 @@ Getting/Retriving Signed in user Data into AysncStorge here */
             <View style={styles.SingleInfoView}>
               <Text style={styles.headingText}>Address</Text>
               <Text style={styles.SummaryAndExperinceText}>
-                {/* {this.state.address} */}
-                            Baker Street , Sherlock House B-221
-                        </Text>
+                {this.state.senderAddress}
+                {/* Baker Street , Sherlock House B-221 */}
+              </Text>
 
             </View>
           </View>

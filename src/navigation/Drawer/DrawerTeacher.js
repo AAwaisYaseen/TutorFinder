@@ -4,12 +4,20 @@ import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerI
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TeacherHome from '../../screens/TeacherHome/TeacherHome';
-import auth from '@react-native-firebase/auth';
 import DisplayFeedBackTeacherSide from '../../screens/DisplayFBTeacherSide/DisplayFBTeacherSide';
 import ProfileTeacher from '../../screens/ProfileTeacher/ProfileTeacher'
 import EditTeacherData from '../../screens/EditTeacherData/EditTeacherData';
 import RequestHandling from '../../screens/RequestHandling/RequestHandling';
 import ConnectionsTeacher from '../../screens/ConnectionsTeacher/ConnectionsTeacher'
+import TeacherChatNavigation from '../../navigation/Communication/TeacherChatNavigation';
+import QuizApp from '../../screens/ReadinessQuiz/PlayQuiz';
+import Test from '../../screens/ReadinessQuiz/QuizTest';
+
+
+
+import auth from '@react-native-firebase/auth';
+
+
 
 async function SignOut() {
   // await AsyncStorage.setItem('@User_Type', '')
@@ -36,7 +44,10 @@ export default function App() {
       <Drawer.Screen name= "Profile" component = {ProfileTeacher} />
       <Drawer.Screen name= "EditTeacherData" component = {EditTeacherData} />
       <Drawer.Screen name= "RequestHandling" component = {RequestHandling}/>
-      <Drawer.Screen name= "Connections" component = {ConnectionsTeacher}/>
+      <Drawer.Screen name= "Connections" component = {TeacherChatNavigation}/>
+      <Drawer.Screen name= "Readiness Test" component = {Test}/>
+
+
 
     </Drawer.Navigator>
   );

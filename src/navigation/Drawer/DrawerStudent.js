@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 //import SearchTutor from '../../screens/SearchTutor/SearchTutor';
 import LiveLocation from '../../screens/LiveLocationMaps/LiveLocationMaps';
 import SearchNavigation from '../SearchNavigation';
+import StudentChatNavigation from '../Communication/StudentChatNavigation';
 import Notifications from '../../screens/Notifications';
 import GiveFeedback from '../../screens/GiveFeedback/GiveFeedback';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -41,10 +42,12 @@ export default function App() {
       <Drawer.Screen name="DashboardStudent" component={DashboardStudent} />
       <Drawer.Screen name="SearchNavigation" component={SearchNavigation} />
       <Drawer.Screen name="LiveLocation" component={LiveLocation} />
-      <Drawer.Screen name="Notifications" component={Notifications} />
+      {/* <Drawer.Screen name="Notifications" component={Notifications} /> */}
       <Drawer.Screen name="ProfileStudent" component={ProfileStudent} />
       <Drawer.Screen name="EditStudentData" component={EditStudentData} />
-      <Drawer.Screen name="ConnectionsStudent" component={ConnectionsStudent} />
+      {/* <Drawer.Screen name="ConnectionsStudent" component={ConnectionsStudent} /> */}
+      <Drawer.Screen name="Connections" component={StudentChatNavigation} />
+
 
 
 

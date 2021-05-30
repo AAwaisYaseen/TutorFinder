@@ -14,7 +14,6 @@ import {
 import { styles } from './styles';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
 import Geolocation from 'react-native-geolocation-service';
-import { makeStyles } from 'react-native-elements';
 import { Marker, } from 'react-native-maps';
 import firestore from '@react-native-firebase/firestore';
 
@@ -57,12 +56,21 @@ class LiveLocationMaps extends React.Component {
         }
     }
 
+    /* ComponentDidMount function gets called when screen opens*/
+
     componentDidMount = async () => {
 
+        /* Getting Live location of Current User (Student)
+         and saving location that into variables.*/
+
+
+        /* Getting Permission to use location*/
         const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
 
         if (granted) {
             console.log("You can use the ACCESS_FINE_LOCATION")
+
+            /* Get  Current location and save into Variables.*/
             Geolocation.getCurrentPosition(
                 (position) => {
                     console.log(position);
@@ -83,6 +91,8 @@ class LiveLocationMaps extends React.Component {
             console.log("ACCESS_FINE_LOCATION permission denied")
         }
 
+        /*Getting Teachers Location from database 
+        and displaying that in maps*/
         this.getTeachersData();
 
     }
@@ -94,29 +104,30 @@ class LiveLocationMaps extends React.Component {
             .collection('teachers')
             .get()
             .then(querySnapshot => {
-                const users = []
+                const users = [] // Local variable
                 //console.log('Total users: ', querySnapshot.size);
 
                 querySnapshot.forEach(documentSnapshot => {
                     //console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
                     users.push({
-                        latitude : documentSnapshot.data().Latitude,
-                        longitude : documentSnapshot.data().Longitude,
-                        name : documentSnapshot.data().Name,
-                        address : documentSnapshot.data().Address,
+                        latitude: documentSnapshot.data().Latitude,
+                        longitude: documentSnapshot.data().Longitude,
+                        name: documentSnapshot.data().Name,
+                        address: documentSnapshot.data().Address,
                         key: documentSnapshot.id,
                     });
                 });
-                console.log(" user listing = " , users)
+                console.log(" user listing = ", users)
+                // Saving that local variale data into Glocabal variable.
                 this.setState({
                     usersList: users
                 })
                 // this.storeData(this.state.usersList);
                 // this.props.navigation.navigate('TeacherListing')
             });
-            
+
         return () => subscriber();
-        
+
     }
 
     render() {
@@ -137,6 +148,8 @@ class LiveLocationMaps extends React.Component {
         ]
         return (
             <View style={styles.container}>
+
+                {/* Displaying Student Location Code*/}
                 <MapView
                     provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                     style={styles.map}
@@ -155,6 +168,9 @@ class LiveLocationMaps extends React.Component {
                 //     longitudeDelta: 0.015421,
                 // }}
                 >
+
+                    {/* Displaying Teacher Location Code*/}
+
                     {this.state.usersList.map((marker) => (
                         <Marker
                             showsUserLocation={true}
