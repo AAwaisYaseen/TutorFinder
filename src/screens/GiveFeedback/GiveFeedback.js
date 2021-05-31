@@ -47,7 +47,7 @@ class GiveFeedback extends React.Component {
 
 
 
-
+// store rating in the variable.
     ratingCompleted = (rating) => {
         console.log("Rating is: " + rating);
         this.setState({
@@ -71,18 +71,18 @@ class GiveFeedback extends React.Component {
 
 
     saveFeedbackInDatabase = () => {
-        const UserData = this.state.SignedInUsedData;
+        // const UserData = this.state.SignedInUsedData;
         const TeacherUID = this.state.UID  // Figure this out.
         const studentUID = firebase.auth().currentUser.uid
         // const image = UserData.Image !== undefined ? UserData.Image : this.state.profilePic;
         const image = this.state.profilePic;
-        const name = UserData.Name;
+        const name = this.state.name;
         const feedback = this.state.feedback;
         const rating = this.state.starRating
 
         // const RandomNumber = Math.floor(Math.random() * 9) + 1;
         const Randrom = Math.random().toString(36).substr(2, 5);
-        console.log(UserData, image, name, feedback, rating, studentUID, TeacherUID)
+        // console.log(UserData, image, name, feedback, rating, studentUID, TeacherUID)
         const feedbackData = {
             StudentUID: studentUID,
             Image: image,
@@ -130,15 +130,19 @@ class GiveFeedback extends React.Component {
     getData = async () => {
         try {
             const teacherID = await AsyncStorage.getItem('@Teacher_UID')
-            const jsonValue = await AsyncStorage.getItem('@SignedInUserStorage_Key')
-            const Data = jsonValue != null ? JSON.parse(jsonValue) : null
+            const studentName = await AsyncStorage.getItem('@student_Name_Key')
+            const studentImage = await AsyncStorage.getItem('@student_Image_Key')
+
+            // const jsonValue = await AsyncStorage.getItem('@SignedInUserStorage_Key')
+            // const Data = jsonValue != null ? JSON.parse(jsonValue) : null
             // console.log(Data.Name)
+
             console.log("UID is :", teacherID)
-            console.log(Data);
 
             this.setState({
                 UID: teacherID,
-                SignedInUsedData: Data
+                name: studentName,
+                profilePic : studentImage
             })
             console.log("Data saved")
             // console.log("UID : ", this.state.SignedInUsedData)

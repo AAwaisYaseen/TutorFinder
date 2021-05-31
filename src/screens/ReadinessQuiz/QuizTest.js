@@ -60,6 +60,8 @@ export default function QuizTest() {
 
     ];
 
+    //variables
+
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
@@ -70,10 +72,10 @@ export default function QuizTest() {
 
     const handleAnswerOptionClick = (isCorrect) => {
         if (isCorrect) {
-            setScore(score + 1);
+            setScore(score + 1); // If answer if true Increase score
         }
 
-        const nextQuestion = currentQuestion + 1;
+        const nextQuestion = currentQuestion + 1; // then go to next question.
         if (nextQuestion < questions.length) {
             setCurrentQuestion(nextQuestion);
         } else {
@@ -82,6 +84,8 @@ export default function QuizTest() {
     };
 
     const GiveTestAgain = () => {
+
+        // resetting all variables values.
         setScore(0);
         setCurrentQuestion(0);
         setShowScore(false);
@@ -128,8 +132,9 @@ export default function QuizTest() {
                 <Text style={styles.score}>You are the master</Text>
                 <Text style={styles.score}>Congrats you scored {score} out of {questions.length} </Text>
                 <Text style={styles.score}>Your account is now Verified!</Text>
-
-            </View>)
+            </View>
+            
+            )
         }
     }
 

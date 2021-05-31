@@ -322,7 +322,7 @@ class StudentLogin extends React.Component {
                         <Text style={{ marginRight: 5 }}>Don't have an account?</Text>
 
                         <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('PhoneVerification')}>
+                            onPress={() => this.props.navigation.navigate('RegisterStudent')}>
                             <Text style={{ fontWeight: 'bold' }}>
                                 STUDENT SIGNUP
                             </Text>

@@ -150,7 +150,8 @@ Getting/Retriving Signed in user Data into AysncStorge here */
 
 
     let key = "AAAAvPgO_90:APA91bGQ0YESbEWyBy20AebKbBObRIkK_TFKhqxAbEblfch5alWU3TDq7WXqWF1_vYZYyvuUFwZYqwnkvR_TwccWr0AQaNQmmxPskuuk4ijIioIB9VDS-w84Ul7WlKQX6z8KifkYMBbd"
-    let NotificationRecieverToken = "dzYhRfsSSuedHmY-XsaFhZ:APA91bGzLQEHo67IzN3_vr3Cx3eRIeCGu_G_9UIwGYMJNnyiU1tspirhO8niYwRYNxAZ2_hy1h89cCOyFhmfdJimwJMWsEnTBoMU7k1QKw457HdhClT3xIgoeevEp8wXqo0_aiJX3GwN"
+    // let NotificationRecieverToken = "dzYhRfsSSuedHmY-XsaFhZ:APA91bGzLQEHo67IzN3_vr3Cx3eRIeCGu_G_9UIwGYMJNnyiU1tspirhO8niYwRYNxAZ2_hy1h89cCOyFhmfdJimwJMWsEnTBoMU7k1QKw457HdhClT3xIgoeevEp8wXqo0_aiJX3GwN"
+    let NotificationRecieverToken = this.state.senderTokenKey
     let title = "Connection Request"
     let body = "Your request has been accepted."
 

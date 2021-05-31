@@ -9,7 +9,8 @@ import {
     Button,
     Image,
     TouchableOpacity,
-    TextInput
+    TextInput,
+    PermissionsAndroid
 } from 'react-native';
 import { styles } from './styles';
 import auth from '@react-native-firebase/auth';
@@ -17,6 +18,8 @@ import firestore from '@react-native-firebase/firestore';
 //import ImagePicker from 'react-native-image-picker';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import ProfileImage from '../../assets/register/profile-pic-dummy.png';
+import messaging from '@react-native-firebase/messaging';
+import Geolocation from 'react-native-geolocation-service';
 
 
 class RegisterStudent extends React.Component {

@@ -176,7 +176,7 @@ export default class ConnectionsTeacher extends React.Component {
                                     <View style={styles.photoContainer}>
                                         <Image
                                             // source={{ uri: item.Image }}
-                                            source={require('../../assets/teacherList/simplepic.jpg')}
+                                            source={require('../../assets/user.png')}
                                             style={styles.picStyle}
 
                                         />

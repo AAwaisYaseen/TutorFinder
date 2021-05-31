@@ -53,6 +53,10 @@ class LiveLocationMaps extends React.Component {
             // ],
             Livelatitude: 123.223,
             liveLongitude: 123.5655,
+
+            // Livelatitude: 31.4949720,
+            // liveLongitude: 74.3711540,
+
         }
     }
 
@@ -153,6 +157,7 @@ class LiveLocationMaps extends React.Component {
                 <MapView
                     provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                     style={styles.map}
+                    zoomControlEnabled = {true}
                     showsUserLocation={true}
                     region={{
                         latitude: this.state.Livelatitude,

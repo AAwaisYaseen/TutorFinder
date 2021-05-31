@@ -16,7 +16,7 @@ import ConnectionsStudent from '../../screens/ConnectionsStudent/ConnectionsStud
 import DashboardStudent from '../../screens/DashboardStudent/DashboardStudent';
 
 async function SignOut() {
-  // await AsyncStorage.setItem('@User_Type', '')
+  await AsyncStorage.setItem('@User_Type', '')
 
   auth()
     .signOut()

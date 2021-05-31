@@ -22,6 +22,7 @@ import firestore from '@react-native-firebase/firestore';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import ProfileImage from '../../assets/register/profile-pic-dummy.png';
 import Geolocation from 'react-native-geolocation-service';
+import messaging from '@react-native-firebase/messaging';
 
 
 

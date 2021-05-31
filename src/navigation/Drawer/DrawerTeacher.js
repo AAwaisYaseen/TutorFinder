@@ -20,7 +20,7 @@ import auth from '@react-native-firebase/auth';
 
 
 async function SignOut() {
-  // await AsyncStorage.setItem('@User_Type', '')
+  await AsyncStorage.setItem('@User_Type', '')
 
   auth()
     .signOut()
