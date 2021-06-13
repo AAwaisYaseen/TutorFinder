@@ -198,7 +198,9 @@ class RegisterTeacher extends React.Component {
                     Latitude : latitude,
                     Longitude : longitude,
                     TokenKey : token,
-                    Verified : false
+                    Verified : false,
+                    BillPicture : 'dummy',
+                    IDCardPicture : 'dummy'
                 }
                 doc.set(storeUser);
                 console.log("Teacher Data Saved");

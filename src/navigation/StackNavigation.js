@@ -8,6 +8,7 @@ import StudentLogin from '../screens/StudentLogin/StudentLogin';
 import RegisterStudent from '../screens/RegisterStudent/RegisterStudent';
 import StudentNavigation from '../navigation/StudentNavigation';
 import TeacherNavigation from '../navigation/TeacherNavigation';
+import AdminNavigation from '../navigation/Admin/AdminNavigation';
 
 const Stack = createStackNavigator();
 
@@ -38,6 +39,13 @@ function MyStack() {
             <Stack.Screen
                 name="TeacherNavigation"
                 component={TeacherNavigation}
+                options={{
+                    headerShown: false,
+                }} />
+
+            <Stack.Screen
+                name="AdminNavigation"
+                component={AdminNavigation}
                 options={{
                     headerShown: false,
                 }} />

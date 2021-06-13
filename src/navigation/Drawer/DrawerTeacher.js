@@ -12,6 +12,8 @@ import ConnectionsTeacher from '../../screens/ConnectionsTeacher/ConnectionsTeac
 import TeacherChatNavigation from '../../navigation/Communication/TeacherChatNavigation';
 import QuizApp from '../../screens/ReadinessQuiz/PlayQuiz';
 import Test from '../../screens/ReadinessQuiz/QuizTest';
+import VerifyAccount from '../../screens/VerifyAccount/VerifyAccount';
+import dummyScreenImageTesting from '../../screens/StorageImages';
 
 
 
@@ -46,6 +48,10 @@ export default function App() {
       <Drawer.Screen name= "RequestHandling" component = {RequestHandling}/>
       <Drawer.Screen name= "Connections" component = {TeacherChatNavigation}/>
       <Drawer.Screen name= "Readiness Test" component = {Test}/>
+      <Drawer.Screen name= "Verify Account" component = {VerifyAccount}/>
+      <Drawer.Screen name= "Storage Check" component = {dummyScreenImageTesting}/>
+
+
 
 
 

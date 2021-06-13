@@ -3,7 +3,7 @@ import * as React from 'react';
 
 
 import Splash from '../screens/Splash/Splash';
-import ChooseUser from '../screens/ChooseUser/ChooseUser';;
+import ChooseUser from '../screens/ChooseUser/ChooseUser';
 import StudentLogin from '../screens/StudentLogin/StudentLogin';
 import RegisterStudent from '../screens/RegisterStudent/RegisterStudent';
 import StudentHome from '../screens/StudentHome/StudentHome';

@@ -13,6 +13,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DrawerStudent from '../Drawer/DrawerStudent';
 import DrawerTeacher from '../Drawer/DrawerTeacher';
+import DrawerAdmin from '../Drawer/DrawerAdmin';
 
 class AuthenticationUserType extends React.Component {
     constructor(props) {
@@ -38,11 +39,18 @@ class AuthenticationUserType extends React.Component {
                 // <DrawerStudent />
                 <DrawerTeacher />
             );
+        } else if (user == 'student') {
+
+            return (
+                <DrawerStudent />
+            );
+        } else {
+            return (
+                <DrawerAdmin />
+            )
         }
 
-        return (
-            <DrawerStudent />
-        );
+
 
     }
 }

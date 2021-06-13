@@ -35,13 +35,19 @@ class ChooseUser extends React.Component {
                     <TouchableOpacity style={styles.UserBtn}
                         onPress={() => this.props.navigation.navigate('TeacherNavigation')}
                     >
-                        <Text style={styles.btnText}>I am a Teacher</Text>
+                        <Text style={styles.btnText}>As Teacher</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.UserBtn}
                         onPress={() => this.props.navigation.navigate('StudentNavigation')}
                     >
-                        <Text style={styles.btnText}>I am a Student</Text>
+                        <Text style={styles.btnText}>As Student</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.UserBtn}
+                        onPress={() => this.props.navigation.navigate('AdminNavigation')}
+                    >
+                        <Text style={styles.btnText}>As Admin</Text>
                     </TouchableOpacity>
                 </View>
 

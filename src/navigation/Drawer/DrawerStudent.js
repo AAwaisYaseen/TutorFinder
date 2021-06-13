@@ -14,6 +14,8 @@ import ProfileStudent from '../../screens/ProfileStudent/ProfileStudent';
 import EditStudentData from '../../screens/EditStudentData/EditStudentData';
 import ConnectionsStudent from '../../screens/ConnectionsStudent/ConnectionsStudent';
 import DashboardStudent from '../../screens/DashboardStudent/DashboardStudent';
+import Video from '../../navigation/VideoNavigation';
+
 
 async function SignOut() {
   await AsyncStorage.setItem('@User_Type', '')
@@ -47,6 +49,7 @@ export default function App() {
       <Drawer.Screen name="EditStudentData" component={EditStudentData} />
       {/* <Drawer.Screen name="ConnectionsStudent" component={ConnectionsStudent} /> */}
       <Drawer.Screen name="Connections" component={StudentChatNavigation} />
+      <Drawer.Screen name="Video Session" component={Video} />
 
 
 
