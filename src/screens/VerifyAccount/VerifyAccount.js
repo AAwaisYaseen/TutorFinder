@@ -8,7 +8,8 @@ import {
     StatusBar,
     Button,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    ActivityIndicator,
 } from 'react-native';
 import { styles } from './styles';
 import { Header } from 'react-native-elements';
@@ -16,6 +17,7 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import storage from '@react-native-firebase/storage';
 import auth, { firebase } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import { Alert } from 'react-native';
 
 
 
@@ -27,9 +29,10 @@ class VerifyAccount extends React.Component {
         this.state = {
             billPictureUri: '',
             idCardPictureUri: '',
-            userName : '',
+            userName: '',
             billPictureName: '',
-            idCardPictureName: ''
+            idCardPictureName: '',
+            showActivity: false,
         }
     }
 
@@ -52,7 +55,7 @@ class VerifyAccount extends React.Component {
                     userName: USER_NAME
                 })
 
-                console.log("UserName retreived" , this.state.userName)
+                console.log("UserName retreived", this.state.userName)
             })
 
     }
@@ -89,8 +92,8 @@ class VerifyAccount extends React.Component {
                 let uploadUri = Platform.OS === 'ios' ? source.replace('file://', '') : source;
 
                 this.setState({
-                    billPictureUri : uploadUri,
-                    billPictureName : imageName,
+                    billPictureUri: uploadUri,
+                    billPictureName: imageName,
                     // profileUri: response.uri
                 });
             }
@@ -147,6 +150,11 @@ class VerifyAccount extends React.Component {
     }
 
     uploadImageToCloudStorage = async () => {
+
+        this.setState({
+            showActivity: true
+        })
+
         const { billPictureUri, billPictureName, idCardPictureUri, idCardPictureName } = this.state;
 
         const USER_ID = auth().currentUser.uid;
@@ -179,6 +187,15 @@ class VerifyAccount extends React.Component {
                 console.log("Data stored in DB")
             })
 
+
+        this.setState({
+            showActivity: false
+        })
+
+
+
+        Alert.alert("Pictures Uploaded")
+
     }
 
 
@@ -199,11 +216,11 @@ class VerifyAccount extends React.Component {
                     /> */}
                         <Text style={styles.chooseUsertxt}>
                             To verify your account please{'\n'}
-                        follow the below instructions.{'\n'}
-                        This will help you get recognized {'\n'}
-                        more and will increase your chances {'\n'}
-                        of getting hired.
-                    </Text>
+                            follow the below instructions.{'\n'}
+                            This will help you get recognized {'\n'}
+                            more and will increase your chances {'\n'}
+                            of getting hired.
+                        </Text>
                     </View>
 
                     <View style={styles.BtnView}>
@@ -221,6 +238,24 @@ class VerifyAccount extends React.Component {
                             onPress={this.uploadImageToCloudStorage}>
                             <Text style={styles.btnText}>Upload Document</Text>
                         </TouchableOpacity>
+
+                        <View>
+                            {this.state.showActivity ? (
+
+                                <ActivityIndicator animating={true} size="small" color="#0000ff" />
+
+                            ) : (
+
+                                <ActivityIndicator animating={false} size="small" color="#0000ff" />
+
+                            )
+                            }
+                        </View>
+
+
+
+
+
                     </View>
 
 

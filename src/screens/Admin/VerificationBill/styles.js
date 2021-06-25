@@ -7,8 +7,8 @@ import {
 export const styles = StyleSheet.create({
     billPic: {
         // backgroundColor: 'yellow',
-        width: 270,
-        height: 300,
+        width: 300,
+        height: 350,
         // marginBottom: 5,
         // borderWidth: 2,
         // borderColor: 'black'

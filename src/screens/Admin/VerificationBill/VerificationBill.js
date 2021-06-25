@@ -11,7 +11,8 @@ import {
     StatusBar,
     Button,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    ActivityIndicator,
 } from 'react-native';
 import { styles } from './styles';
 import auth from '@react-native-firebase/auth';
@@ -257,7 +258,28 @@ class VerificationBill extends React.Component {
                             <Text style={styles.titleText}>Picture of Bill</Text>
 
                             <View style={{ borderWidth: 2, borderColor: 'black', }}>
-                                <Image
+
+                                {this.state.billImageUrl === '' ? (
+
+                                    <View>
+                                        <ActivityIndicator animating={true} size="small" color="#0000ff" />
+                                    </View>
+
+                                ) : (
+
+                                    <Image
+                                        source={{
+                                            uri: this.state.billImageUrl,
+                                        }}
+
+                                        // {uthis.state.profileImageUrl}            // size={25}
+                                        resizeMode='contain'
+                                        style={styles.billPic}
+                                    />
+
+
+                                )}
+                                {/* <Image
                                     source={{
                                         uri: this.state.billImageUrl,
                                     }}
@@ -265,12 +287,12 @@ class VerificationBill extends React.Component {
                                     // {uthis.state.profileImageUrl}            // size={25}
                                     resizeMode='contain'
                                     style={styles.billPic}
-                                />
+                                /> */}
                             </View>
 
-                            <TouchableOpacity style={styles.downloadBtn}>
+                            {/* <TouchableOpacity style={styles.downloadBtn}>
                                 <Text style={styles.btnTextDownload}>Download</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
 
 
                         </View>
@@ -282,26 +304,47 @@ class VerificationBill extends React.Component {
 
                             <Text style={styles.titleText}>Picture of ID Card</Text>
 
-                            <View style={{ borderWidth: 2, borderColor: 'black', }}>
-                                <Image
+                            <View style={{ borderWidth: 2, borderColor: 'black', alignItems: 'center', justifyContent: 'center' }}>
+
+                                {this.state.idCardImageUrl === '' ? (
+                                    <View>
+                                        <ActivityIndicator animating={true} size="small" color="#0000ff" />
+                                    </View>
+
+                                ) : (
+
+                                    <Image
+                                        source={{
+                                            uri: this.state.idCardImageUrl,
+                                        }}
+
+                                        resizeMode='contain'
+                                        style={styles.billPic}
+                                    />
+
+                                )}
+
+
+
+                                {/* <Image
                                     source={{
                                         uri: this.state.idCardImageUrl,
                                     }}
 
                                     resizeMode='contain'
                                     style={styles.billPic}
-                                />
+                                /> */}
                             </View>
 
-                            <TouchableOpacity style={styles.downloadBtn}>
+                            {/* <TouchableOpacity style={styles.downloadBtn}>
                                 <Text style={styles.btnTextDownload}>Download</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
 
 
                         </View>
 
-                        <View style = {styles.VerifyBtnView}>
-                            
+                        <View style={styles.VerifyBtnView}>
+
                             {this.state.VerifiedCheck ? (
                                 <TouchableOpacity style={styles.UserBtnDisabled}
                                     disabled

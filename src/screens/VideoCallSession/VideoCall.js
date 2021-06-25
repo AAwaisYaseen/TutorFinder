@@ -13,7 +13,7 @@ const AgoraVideoCalling = ({ navigation }) => {
     const [joined, setJoined] = React.useState(false)
     //const [agoraAppId, setAgoraAppId] = React.useState('6e9af52037bb4ed18b5c7cccf8a75d15')
     const [channelId, setChannelId] = React.useState('')
-    const [token, setToken] = React.useState('0069a859e45a2c944bea92947d3226ad1e6IACnS7MntoAOqvzKrCxB4t/imCkdon8aTC3SZ78lh+wHzJgEodMAAAAAEAAZ33Rzau/EYAEAAQBp78Rg')
+    const [token, setToken] = React.useState('0069a859e45a2c944bea92947d3226ad1e6IAAmQAHR1pNc/sVsrbGOMaHQ5FQKVTtkilxSdB5puVLuRpgEodMAAAAAEAAZ33RzVHPJYAEAAQBTc8lg')
     const [peerId, setPeerId] = React.useState([])
     const [videoMute, setVideoMute] = React.useState(false);
     const [audioMute, setAudioMute] = React.useState(false);
